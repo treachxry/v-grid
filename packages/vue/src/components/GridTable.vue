@@ -1,23 +1,36 @@
 <script setup lang="ts" generic="TModel extends IModelBase">
-    import {Component as ComponentModel, computed, ref, watch} from "vue";
-    import {IGridConfiguration, IGridColumnConfiguration} from "@v-grid/core";
+    import {Component as ComponentModel, computed, Ref, ref, watch} from "vue";
+    import {IGridColumnConfiguration, IGridConfiguration} from "@v-grid/core";
     import {IModelBase} from "@/models/IModelBase";
     import {IRowModel} from "@/models/IRowModel";
     import {IGridEvents} from "@/models/IGridEvents";
-    import CellText from "@/components/cells/CellText.vue";
     import Check from "@/components/icons/Check.vue";
     import Ban from "@/components/icons/Ban.vue";
     import X from "@/components/icons/X.vue";
+    import CellText from "@/components/cells/CellText.vue";
+    import CellTextbox from "@/components/cells/CellTextbox.vue";
+    import CellNumber from "@/components/cells/CellNumber.vue";
+    import CellBoolean from "@/components/cells/CellBoolean.vue";
+    import PageView from "@/components/PageView.vue";
 
-    const {data, config, events = {}, components = []} = defineProps<{
+    const {data, config, events = {} as IGridEvents<TModel>} = defineProps<{
         data: TModel[]
         config: IGridConfiguration<TModel>
         events?: IGridEvents<TModel>
-        components?: ComponentModel[]
     }>();
 
-    const models = ref<IRowModel<TModel>[]>(getFreshData());
+    const models = ref<IRowModel<TModel>[]>(getFreshData()) as Ref<IRowModel<TModel>[]>;
     const newModel = ref<IRowModel<TModel> | undefined>();
+
+    const pageSize = ref(50);
+    const currentPage = ref(1);
+
+    const components: ComponentModel[] = [
+        CellText,
+        CellTextbox,
+        CellNumber,
+        CellBoolean
+    ];
 
     watch(() => data, () => {
         models.value = getFreshData();
@@ -48,7 +61,10 @@
     });
 
     const displayModels = computed<IRowModel<TModel>[]>(() => {
-        const result: IRowModel<TModel>[] = [...(models.value as IRowModel<TModel>[])];
+        const start = (currentPage.value - 1) * pageSize.value;
+        const end = Math.min(models.value.length, start + pageSize.value);
+
+        const result: IRowModel<TModel>[] = models.value.slice(start, end)
 
         if(newModel.value) {
             result.unshift(newModel.value);
@@ -131,9 +147,9 @@
 </script>
 
 <template>
-    <div class="flex flex-col">
+    <div class="v-grid">
         <!-- header -->
-        <div class="flex items-center px-1 gap-2">
+        <div class="v-grid-top-bar">
             <button class="v-grid-button" v-if="events.create" @click="startCreate">
                 Create new
             </button>
@@ -143,9 +159,6 @@
             <button class="v-grid-button" v-if="events.update" @click="discardChanges">
                 Discard changes
             </button>
-            <div class="ms-auto text-sm">
-                {{models.length}} items
-            </div>
         </div>
 
         <!-- grid -->
@@ -202,12 +215,19 @@
             </tr>
             </tbody>
             <tbody v-else>
-                <tr>
-                    <td :colspan="columnCount + 1">
-                        <div class="v-grid-empty">No items</div>
-                    </td>
-                </tr>
+            <tr>
+                <td :colspan="columnCount + 1">
+                    <div class="v-grid-empty">No items</div>
+                </td>
+            </tr>
             </tbody>
         </table>
+
+        <!-- footer -->
+        <page-view
+            :total="data.length"
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+        />
     </div>
 </template>

@@ -30,13 +30,38 @@
 </script>
 
 <template>
-    <div :class="{'v-grid-active': open}" class="relative">
-        <button class="text-left w-full" @click="toggleOpen">
+    <div :class="{'v-grid-active': open}" class="v-cell">
+        <button class="v-display" @click="toggleOpen">
             {{ currentValue ? 'True' : 'False' }}
         </button>
-        <div v-if="open" class="absolute z-10 top-full mt-1.5 -left-2 -right-2 flex flex-col bg-base">
-            <button @click="selectValue(true)" class="button rounded-none">True</button>
-            <button @click="selectValue(false)" class="button rounded-none">False</button>
+        <div v-if="open" class="v-input">
+            <button @click="selectValue(true)" class="v-button">True</button>
+            <button @click="selectValue(false)" class="v-button">False</button>
         </div>
     </div>
 </template>
+
+<style scoped>
+    .v-cell {
+        position: relative;
+    }
+
+    .v-display {
+        text-align: left;
+        width: 100%;
+    }
+
+    .v-input {
+        position: absolute;
+        z-index: 10;
+        inset: 100% -0.5rem auto -0.5rem;
+        margin-top: 0.375rem;
+        display: flex;
+        flex-direction: column;
+        background: var(--color-base);
+    }
+
+    .v-button {
+        border-radius: 0;
+    }
+</style>

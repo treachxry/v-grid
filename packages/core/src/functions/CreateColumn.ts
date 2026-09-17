@@ -1,5 +1,5 @@
-import {IGridColumnBuilder} from "@/models/IGridColumnBuilder";
-import {IGridColumnConfiguration} from "@/models/IGridColumnConfiguration";
+import {IGridColumnBuilder} from "@/models/configuration/IGridColumnBuilder";
+import {IGridColumnConfiguration} from "@/models/configuration/IGridColumnConfiguration";
 
 export function createColumn<TModel, TProp>(getter: (model: TModel) => TProp): {column: IGridColumnConfiguration<TModel, TProp>, builder: IGridColumnBuilder<TProp>} {
     const key: string = nameof(getter);

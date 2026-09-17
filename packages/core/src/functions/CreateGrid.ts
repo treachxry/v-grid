@@ -1,8 +1,8 @@
 import {createColumn} from "@/functions/CreateColumn";
-import {IGridConfiguration} from "@/models/IGridConfiguration";
-import {IGridColumnConfiguration} from "@/models/IGridColumnConfiguration";
-import {IGridBuilder} from "@/models/IGridBuilder";
-import {IGridColumnBuilder} from "@/models/IGridColumnBuilder";
+import {IGridConfiguration} from "@/models/configuration/IGridConfiguration";
+import {IGridColumnConfiguration} from "@/models/configuration/IGridColumnConfiguration";
+import {IGridBuilder} from "@/models/configuration/IGridBuilder";
+import {IGridColumnBuilder} from "@/models/configuration/IGridColumnBuilder";
 
 export function createGrid<TModel extends object>(name: string, init: (builder: IGridBuilder<TModel>) => void): IGridConfiguration<TModel> {
     const columns: IGridColumnConfiguration<TModel, any>[] = [];

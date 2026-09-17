@@ -1,6 +1,6 @@
-import {IGridConfigurationManager} from "@/models/IGridConfigurationManager";
-import {IGridConfiguration} from "@/models/IGridConfiguration";
-import {IGridBuilder} from "@/models/IGridBuilder";
+import {IGridConfigurationManager} from "@/models/configuration/IGridConfigurationManager";
+import {IGridConfiguration} from "@/models/configuration/IGridConfiguration";
+import {IGridBuilder} from "@/models/configuration/IGridBuilder";
 import {createGrid} from "@/functions/CreateGrid";
 
 export class GridConfigurationManager implements IGridConfigurationManager {

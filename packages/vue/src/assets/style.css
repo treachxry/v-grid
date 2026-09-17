@@ -1,6 +1,2 @@
-@import "tailwindcss";
 @import "@/assets/theme.css";
-
-@layer components {
-    @import "@/assets/grid.css";
-}
+@import "@/assets/grid.css";

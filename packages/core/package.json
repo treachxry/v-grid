@@ -1,7 +1,7 @@
 {
   "name": "@v-grid/core",
   "description": "Package for managing grids for data display",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -9,7 +9,6 @@
   ],
   "scripts": {
     "build": "tsc && tsc-alias",
-    "publish": "npm publish",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
