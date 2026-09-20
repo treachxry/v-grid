@@ -6,10 +6,32 @@
     --color-dirty: oklch(80% 0.16 80);
 }
 
+.v-grid,
+.v-grid *,
+.v-grid ::after,
+.v-grid ::before,
+.v-grid ::backdrop,
+.v-grid ::file-selector-button {
+    box-sizing: border-box;
+    border: 0 solid;
+    color: inherit;
+    background: initial;
+    font: inherit;
+}
+
 .v-grid {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    padding: 0.5rem;
+    color: var(--color-base-content);
+    background: var(--color-base);
+    height: 100%;
+}
+
+.v-grid-table-wrapper {
+    flex: 1 1 auto;
+    overflow-y: auto;
 }
 
 .v-grid-table {
@@ -59,11 +81,12 @@
 }
 
 .v-grid-button {
-    border: 1px solid color-mix(in oklch, var(--color-base-content) 20%, transparent);
+    border: 1px solid var(--color-highlight);
+    border-radius: 0.25rem;
     background-color: var(--color-base);
     transition: all 150ms ease;
     outline: 0;
-    padding: 0 0.5rem;
+    padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
 }
@@ -90,7 +113,7 @@
 }
 
 .v-button {
-    border: 1px solid color-mix(in oklch, var(--color-base-content) 20%, transparent);
+    border: 1px solid color-mix(in oklch, var(--color-base-content) 30%, transparent);
     border-radius: 0.25rem;
     padding: 0.25rem 1rem;
     background: var(--color-base);
@@ -117,10 +140,46 @@
     display: flex;
     align-items: center;
     padding: 0 0.25rem;
-    gap: 0.5rem;
+    gap: 1rem;
+}
+
+.v-button-container {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.v-page-placeholder, .v-page-button {
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .v-page-button {
-    width: 2rem;
+    border: 1px solid color-mix(in oklch, var(--color-base-content) 30%, transparent);
+    border-radius: 0.25rem;
+    transition-duration: 150ms;
+    transition-property: color, background-color;
+    transition-timing-function: ease-in;
+}
+
+.v-page-button:not(.v-active):hover {
+    background: color-mix(in oklch, var(--color-highlight) 20%, transparent);
+}
+
+.v-page-button.v-active {
+    background: var(--color-highlight);
+    color: var(--color-highlight-content);
+}
+
+.v-dropdown {
+    border: 1px solid color-mix(in oklch, var(--color-base-content) 30%, transparent);
+    border-radius: 0.25rem;
+    padding: 0.25rem 1rem;
+    background: var(--color-base);
+    outline: none;
+    transition: 150ms all ease-in;
     height: 2rem;
 }

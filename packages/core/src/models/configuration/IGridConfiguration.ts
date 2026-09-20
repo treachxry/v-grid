@@ -1,6 +1,6 @@
-import {IGridColumnConfiguration} from "@/models/configuration/IGridColumnConfiguration";
+import {IColumnConfiguration} from "@/models/configuration/IColumnConfiguration";
 
-export interface IGridConfiguration<TModel extends object> {
+export interface IGridConfiguration {
     name: string
-    columns: IGridColumnConfiguration<TModel, any>[]
+    columns: IColumnConfiguration[]
 }

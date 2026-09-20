@@ -1,5 +1,5 @@
-import {IGridColumnBuilder} from "@/models/configuration/IGridColumnBuilder";
+import {IColumnBuilder} from "@/models/configuration/IColumnBuilder";
 
 export interface IGridBuilder<TModel extends object> {
-    column<TProp>(getter: (model: TModel) => TProp): IGridColumnBuilder<TModel>
+    column<TProp>(getter: (model: TModel) => TProp): IColumnBuilder
 }
