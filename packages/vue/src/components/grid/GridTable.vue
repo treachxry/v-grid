@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="TModel extends IModelBase">
     import {computed, Ref, ref, watch} from "vue";
-    import {IGridConfiguration, IQueryRequest, IQueryResult} from "@v-grid/core";
+    import {IGridConfiguration, IQueryRequest, SortDirection} from "@v-grid/core";
     import {useQuery} from "@/composables/useQuery";
     import {IModelBase} from "@/models/IModelBase";
     import {IRowModel} from "@/models/IRowModel";
@@ -8,11 +8,10 @@
     import PageView from "@/components/grid/PageView.vue";
     import GridRow from "@/components/grid/GridRow.vue";
 
-    const {config, events = {} as IGridEvents<TModel>, request, readData} = defineProps<{
+    const {config, events, request} = defineProps<{
         config: IGridConfiguration
-        events?: IGridEvents<TModel>
+        events: IGridEvents<TModel>
         request?: IQueryRequest
-        readData: (request: IQueryRequest) => Promise<IQueryResult<TModel>>
     }>();
 
     const queryRequest = ref<IQueryRequest>(request ?? {
@@ -22,7 +21,7 @@
         filters: []
     });
 
-    const {queryResult, refreshQueryResult} = useQuery(queryRequest, readData);
+    const {queryResult, refreshQueryResult, updateFilter, updateSort} = useQuery(queryRequest, events.read);
     const models = ref<IRowModel<TModel>[]>([]) as Ref<IRowModel<TModel>[]>;
     const newModel = ref<IRowModel<TModel> | undefined>();
 
@@ -100,7 +99,19 @@
                 <thead>
                     <tr class="v-grid-header-row">
                         <th class="v-grid-header-cell">Actions</th>
-                        <th v-for="column in config.columns" v-show="column.isVisible" class="v-grid-header-cell">{{column.title}}</th>
+                        <th
+                            v-for="column in config.columns"
+                            v-show="column.isVisible"
+                            class="v-grid-header-cell"
+                        >
+                            <div @click="updateSort(column.key)" class="v-grid-header-title">
+                                <span>{{column.title}}</span>
+                                <span class="v-grid-sort-icon" v-if="queryRequest.sorts.find(s => s.name === column.key)">
+                                    {{queryRequest.sorts.find(s => s.name === column.key)?.direction === SortDirection.Ascending ? '↑' : '↓'}}
+                                </span>
+                            </div>
+                            <input type="text" class="v-filter-input" @input="e => updateFilter(column.key, (e.target as HTMLInputElement).value)"/>
+                        </th>
                     </tr>
                 </thead>
 

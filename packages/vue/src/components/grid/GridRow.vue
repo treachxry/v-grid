@@ -30,7 +30,7 @@
     <tr class="v-grid-row" :key="rowKey">
         <td class="v-grid-cell">
             <div class="v-grid-actions">
-                <button v-if="events.remove" @click="deleteRow">
+                <button class="v-grid-action-button" v-if="events.remove" @click="deleteRow">
                     <x class="v-grid-icon"/>
                 </button>
             </div>

@@ -1,6 +1,7 @@
-:root {
-    --color-base: oklch(22% 0.02 310);
-    --color-base-content: oklch(90% 0.04 310);
-    --color-highlight: oklch(75% 0.20 290);
-    --color-highlight-content: oklch(15% 0 0);
+.v-grid {
+    --color-base: oklch(1000% 0 0);
+    --color-base-content: oklch(0% 0 0);
+    --color-highlight: oklch(0.40 0.10 240);
+    --color-highlight-content: oklch(100% 0 0);
+    --color-dirty: oklch(80% 0.16 80);
 }

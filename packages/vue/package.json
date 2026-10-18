@@ -1,7 +1,7 @@
 {
   "name": "@v-grid/vue",
   "description": "Vue.js specific component implementations of @v-grid/core",
-  "version": "0.3.3",
+  "version": "0.3.6",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/v-grid-vue.umd.js",
@@ -23,7 +23,7 @@
     "test": "vite test -c ./test/vite.config.test.ts"
   },
   "dependencies": {
-    "@v-grid/core": "^0.2.0"
+    "@v-grid/core": "^0.3.0"
   },
   "devDependencies": {
     "@types/node": "^26.5.0",

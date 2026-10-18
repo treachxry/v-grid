@@ -75,5 +75,7 @@
         min-width: 0;
         width: 100%;
         outline: none;
+        border: none;
+        padding: 0;
     }
 </style>
